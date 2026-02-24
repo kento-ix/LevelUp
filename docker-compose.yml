@@ -1,0 +1,41 @@
+services:
+  mysql:
+    platform: linux/amd64
+    container_name: mysql # container name
+    image: mysql:8.0 # use MySQL 8.0 image
+    ports: 
+      - '3307:3306' # My SQL port
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # root user password
+      MYSQL_DATABASE: ${MYSQL_DATABASE}           # database name that created
+      MYSQL_USER: ${MYSQL_USER}                   # public username
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}           # public user password
+    volumes:
+     - mysql:/var/lib/mysql                          # persistence data
+    command: --default-authentication-plugin=mysql_native_password
+
+  app:
+    build: 
+      context: ./server # build using dokcerfile
+    container_name: app
+    ports:
+      - "8080:80" # access http://localhost:8080
+    volumes:
+      - "./server:/var/www/html"
+    depends_on:
+      - mysql # start up after mysql start
+
+  phpmyadmin:
+    platform: linux/amd64
+    image: phpmyadmin:5.2.1-apache
+    container_name: phpmyadmin
+    ports:
+      - "8081:80" # access http://localhost:8081
+    environment:
+      PMA_HOST: mysql #mysql container name
+      PMA_PORT: 3306  #mysql port number
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - mysql # start up after mysql start
+volumes:
+  mysql:
