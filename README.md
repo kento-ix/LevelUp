@@ -9,9 +9,10 @@ Ensure you have the following installed
 ## 💻 Setup
 #### Configure Environment Variables
 Before starting Docker, you must create a local environment file.
-1. Copy the example file: cp .env.example .env
-
-2. Open .env and update the passwords if necessary.
+1. Copy the example file:
+   ```
+   cp .env.example .env
+   ```
 
 Note: The .env file contains secrets and should never be committed to version control.
 
@@ -19,6 +20,7 @@ Note: The .env file contains secrets and should never be committed to version co
 1. Initial Setup or Code Updates
 ```
 docker compose up --build
+docker-compose exec app composer install
 ```
 
 - --build: Forces Docker to re-read your Dockerfile and re-package your application code.
@@ -30,21 +32,11 @@ For daily development after the initial setup, simply run:
 docker-compose up
 ```
 
-3. Dependency Installation (Composer)
+3. Managing Dependencies (Composer)
 
-Since PHP is running inside a container, you must install the project dependencies (libraries) inside that container
-
-    1. Enter the container's shell (Bash):
-
-    - docker exec -it app bash
-
-    2. Verify the prompt: Your terminal should change to something like "root@29ab2b822b9f:/var/www/html#"
-
-    3. Install Composer dependencies: Run the following command inside the container:
-
-    - composer install
-
-    4. Exit: Type exit to return to your local terminal.
+Whenever a teammate adds a new library (updates composer.json), you need to sync your local environment:
+        
+    docker-compose exec app composer install
 
 
 4. Stopping the Environment
