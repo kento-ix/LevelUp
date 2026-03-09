@@ -1,6 +1,6 @@
 <?php
-use app\controllers\SiteController;
-use app\controllers\UserController;
+use app\Controllers\SiteController;
+use app\Controllers\UserController;
 
 $app->router->get('/', [SiteController::class, 'home']); //http://localhost:8080/
 
