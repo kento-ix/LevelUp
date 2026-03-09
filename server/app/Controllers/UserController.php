@@ -1,8 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
 
-use app\models\User;
+use app\Models\User;
 
 class UserController
 {
