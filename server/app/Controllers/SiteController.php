@@ -1,5 +1,5 @@
 <?php
-namespace app\controllers;
+namespace app\Controllers;
 
 class SiteController {
     public function home() {
