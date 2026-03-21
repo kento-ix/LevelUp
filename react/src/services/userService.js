@@ -1,6 +1,6 @@
 import api from "../config/api";
 
 export const getAll = async () => {
-  const response = await api.get("/users");
-  return response.data;
+  const res = await api.get("/users");
+  return res.data;
 };

@@ -4,28 +4,32 @@ import { getAll } from "../services/userService";
 
 export default function UserList() {
   const [users, setUsers] = useState([]);
+  const [fetchError, setFetchError] = useState('');
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await getAll();
+  useEffect(function fetchUsers() {
+    getAll()
+      .then(res => {
         setUsers(res.data);
-      } catch (err) {
-        console.error("fail api connection", err);
-      }
-    };
-    fetchUsers();
+        console.log(res);
+      })
+      .catch(e => {
+        const msg = e.response?.data?.message || "Fail to get data";
+        setFetchError(msg);
+      });
   }, []);
 
   return (
-    <div>
-        <ul>
-            {users.map((user) => (
-                <li key={user.id}>
-                    {user.id} | {user.name} | {user.email}               
-                </li>
-            ))}
-        </ul>
-    </div>
+    <>
+      {fetchError && <p>{fetchError}</p>}
+      <div>
+          <ul>
+              {users.map((user) => (
+                  <li key={user.id}>
+                      {user.id} | {user.name} | {user.email}               
+                  </li>
+              ))}
+          </ul>
+      </div>
+    </>
   );
 }
