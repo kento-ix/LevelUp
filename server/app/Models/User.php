@@ -20,17 +20,17 @@ class User
     public function getAllUsers(): array
     {
         
-        /*
-        $sql = "SELECT id, name, email FROM users";
+        $sql  = "SELECT UserID, Email, Username, DateJoined, Availability FROM User ORDER BY UserID";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        */
+    }
 
-        // dummy data
-        return [
-            ['id' => 1, 'name' => 'John Doe', 'email' => 'john@example.com'],
-            ['id' => 2, 'name' => 'Jane Smith', 'email' => 'jane@example.com'],
-        ];
+    public function getUserById(int $id): array|false
+    {
+        $sql  = "SELECT UserID, Email, Username, DateJoined, Availability FROM User WHERE UserID = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
