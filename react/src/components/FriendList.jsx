@@ -34,6 +34,7 @@ export default function FriendList() {
 
   return (
     <>
+    <h2>Search your friend</h2>
       <div>
         <input
           type="number"
