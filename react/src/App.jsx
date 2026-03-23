@@ -1,16 +1,19 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
-import UserList from './components/UserList'
-import FriendList from './components/FriendList'
-import AddFriendForm from './components/form/AddFriendForm'
+import Layout from './components/layout/Layout'
+import UsersPage from './pages/UsersPage'
+import FriendsPage from './pages/FriendsPage'
 
 function App() {
   return (
-    <>
-      <h1>User info</h1>   
-      {/* <UserList /> */}
-      <FriendList />
-      <AddFriendForm />
-    </>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/friends" element={<FriendsPage />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   )
 }
 

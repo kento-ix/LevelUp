@@ -50,6 +50,7 @@ export default function UserList() {
   return (
     <>
       <div>
+        <h3>Try to find user by id</h3>
         <input
           type="number"
           placeholder="Search by UserID"

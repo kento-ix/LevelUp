@@ -1,0 +1,13 @@
+header {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+header nav {
+  display: flex;
+  gap: 1rem;
+}
+
+header nav a {
+  text-decoration: none;
+}
