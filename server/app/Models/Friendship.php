@@ -24,4 +24,12 @@ class Friendship
         $stmt->execute([':id' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function addFriendship(int $userId, int $friendId): void
+    {
+        $sql = "INSERT INTO FriendShip (UserID, FriendID) VALUES (:userId, :friendId)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':userId' => $userId, ':friendId' => $friendId]);
+        $stmt->execute([':userId' => $friendId, ':friendId' => $userId]);
+    }
 }
