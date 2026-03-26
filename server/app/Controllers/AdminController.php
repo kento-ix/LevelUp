@@ -17,4 +17,25 @@ class AdminController
             'data' => $admin
         ];
     }
+    public function count() 
+    {
+        $adminModel = new Admin();
+        $result     = $adminModel->getCount();
+        return [
+            'status' => 'success',
+            'data'   => $result
+        ];
+        }
+        public function countFriends() 
+        {
+            $friendshipModel = new Friendship();
+            $friend = $friendshipModel->countFriendsUserHas();
+            
+            // output array as json
+            return [
+                'status' => 'success',
+                'count'  => count($friend),
+                'data' => $friend
+            ];
+    }
 }

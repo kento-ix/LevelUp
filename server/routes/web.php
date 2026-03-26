@@ -20,13 +20,15 @@ $app->router->get('/api/users/searchEmail', [UserController::class, 'searchEmail
 $app->router->get('/api/users/create', [UserController::class, 'create']);
 $app->router->get('/api/users/update', [UserController::class, 'update']);
 $app->router->get('/api/users/delete', [UserController::class, 'delete']);
+
+// Friends
 $app->router->get('/api/users/friends', [FriendshipController::class, 'friends']);
 $app->router->get('/api/users/friends/count', [FriendshipController::class, 'countFriends']);
 $app->router->post('/api/users/friends/add', [FriendshipController::class, 'add']);
-$app->router->get('/api/users/projection', [UserController::class, 'projection']);
 
 // Admin
 $app->router->get('/api/admins', [AdminController::class, 'index']);
+$app->router->get('/api/admins/count', [AdminController::class, 'count']);
 
 // Moderator
 $app->router->get('/api/moderators', [ModeratorController::class, 'index']);
@@ -34,7 +36,7 @@ $app->router->get('/api/moderators', [ModeratorController::class, 'index']);
 // Post
 $app->router->get('/api/posts', [PostController::class, 'index']);
 
-//Comminity
+//Community
 $app->router->get('/api/community', [CommunityController::class, 'index']);
 $app->router->get('/api/community/getByUser', [CommunityController::class, 'getByUser']);
 $app->router->get('/api/community/division', [CommunityController::class, 'division']);

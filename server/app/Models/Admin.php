@@ -29,13 +29,11 @@ class Admin
     public function getCount(): array
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT A.UserID, U.Username, A.Permission 
-        FROM Admin A
-        JOIN User U ON A.UserID = U.UserID
-        ORDER BY A.UserID
+        $sql  = "SELECT COUNT(*) AS TotalAdmins 
+        FROM Admin
         ";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
