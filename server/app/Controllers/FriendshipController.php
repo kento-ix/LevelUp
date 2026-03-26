@@ -51,4 +51,16 @@ class FriendshipController
             'data'   => $friends,
         ];
     }
+    public function countFriends() 
+    {
+        $friendshipModel = new Friendship();
+        $friend = $friendshipModel->countFriendsUserHas();
+        
+        // output array as json
+        return [
+            'status' => 'success',
+            'count'  => count($friend),
+            'data' => $friend
+        ];
+    }
 }

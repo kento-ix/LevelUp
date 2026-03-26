@@ -10,7 +10,7 @@ USE level_up;
 -- ============================================
 
 CREATE TABLE User (
-    UserID INTEGER PRIMARY KEY,
+    UserID INTEGER PRIMARY KEY AUTO_INCREMENT,
     Email VARCHAR(100) UNIQUE NOT NULL,
     Username VARCHAR(50)  UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
@@ -101,12 +101,12 @@ CREATE TABLE Post (
 -- mock data
 -- ============================================
 
-INSERT INTO User (UserID, Email, Username, Password, DateJoined, Availability) VALUES
-(1, 'User1@gmail.com', 'User1', 'Pass1word', '2012-06-15', 'online'),
-(2, 'User2@gmail.com', 'User2', 'Pass2word', '2013-01-21', 'offline'),
-(3, 'User3@gmail.com', 'User3', 'Pass3word', '2015-09-05', 'online'),
-(4, 'User4@gmail.com', 'User4', 'Pass4word', '2015-04-09', 'busy'),
-(5, 'User5@gmail.com', 'User5', 'Pass5word', '2017-05-29', 'online');
+INSERT INTO User (Email, Username, Password, DateJoined, Availability) VALUES
+('User1@gmail.com', 'User1', 'Pass1word', '2012-06-15', 'online'),
+('User2@gmail.com', 'User2', 'Pass2word', '2013-01-21', 'offline'),
+('User3@gmail.com', 'User3', 'Pass3word', '2015-09-05', 'online'),
+('User4@gmail.com', 'User4', 'Pass4word', '2015-04-09', 'busy'),
+('User5@gmail.com', 'User5', 'Pass5word', '2017-05-29', 'online');
 
 INSERT INTO FriendShip (UserID, FriendID) VALUES
 (1, 2),
