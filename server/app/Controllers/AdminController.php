@@ -8,7 +8,13 @@ class AdminController
 {
     public function index(): array
     {
-        $admin = new Admin();
-        return $admin->getAllAdmins();
+        $adminModel = new Admin();
+        $admin = $adminModel->getAllAdmins();
+        // output array as json
+        return [
+            'status' => 'success',
+            'count'  => count($admin),
+            'data' => $admin
+        ];
     }
 }

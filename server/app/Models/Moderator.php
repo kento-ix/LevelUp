@@ -20,10 +20,11 @@ class Moderator
     public function getAllModerators(): array
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT M.UserID, U.Username, M.AssignedCommunity 
+        $sql  = "SELECT M.UserID, U.Username, C.Name AS AssignedCommunity 
         FROM Moderator M
         JOIN User U ON M.UserID = U.UserID
-        ORDER BY A.UserID
+        JOIN Community C ON M.AssignedCommunity = C.CommunityID
+        ORDER BY M.UserID
         ";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();

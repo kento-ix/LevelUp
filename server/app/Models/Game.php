@@ -15,16 +15,33 @@ class Game
     }
 
     /**
-     * Return admin list
+     * Return list of games
      */
     public function getAllGames(): array
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT GameID, Genre, Title, PublishedDate 
-        FROM Game
-        ";
+        $sql  = "SELECT * 
+        FROM Game";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function gameCount(): array
+    {
+        $pdo  = $this->pdo;
+        $sql  = "SELECT COUNT(*) AS total_games
+        FROM Game";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function recentlyPublished(): array|false
+    {
+        $pdo  = $this->pdo;
+        $sql  = "SELECT MAX(PublishedDate) 
+        FROM Game";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

@@ -43,4 +43,23 @@ class Community
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getUsersInAllCommunities(): array
+    {
+        $pdo  = $this->pdo;
+        $sql  = "SELECT U.UserID, U.Username
+                FROM User U
+                WHERE NOT EXISTS (
+                    SELECT C.CommunityID
+                    FROM Community C
+                    WHERE NOT EXISTS (
+                        SELECT UGC.CommunityID
+                        FROM User_Game_Has_Community UGC
+                        WHERE UGC.UserID = U.UserID
+                        AND UGC.CommunityID = C.CommunityID
+                    )
+                )";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
