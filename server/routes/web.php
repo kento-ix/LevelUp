@@ -12,16 +12,14 @@ $app->router->get('/', [SiteController::class, 'home']); //http://localhost:8080
 // user interface needs to be made to input values to search up
 
 // User
-$app->router->get('/api/users', [UserController::class, 'index']); // http://localhost:8080/api/users
-$app->router->get('/api/users/projection', [UserController::class, 'projection']);
-$app->router->get('/api/users/show', [UserController::class, 'show']);
-$app->router->get('/api/users/searchUsername', [UserController::class, 'searchUsername']);
-$app->router->get('/api/users/searchEmail', [UserController::class, 'searchEmail']);
-$app->router->get('/api/users/create', [UserController::class, 'create']);
-$app->router->get('/api/users/update', [UserController::class, 'update']);
-$app->router->get('/api/users/delete', [UserController::class, 'delete']);
-
-// Friends
+$app->router->get('/api/users',                  [UserController::class, 'index']);
+$app->router->get('/api/users/show',             [UserController::class, 'show']);
+$app->router->get('/api/users/projection',       [UserController::class, 'projection']);
+$app->router->get('/api/users/searchUsername',   [UserController::class, 'searchUsername']);
+$app->router->get('/api/users/searchEmail',      [UserController::class, 'searchEmail']);
+$app->router->post('/api/users/create',          [UserController::class, 'create']);
+$app->router->put('/api/users/update',           [UserController::class, 'update']);
+$app->router->delete('/api/users/delete',        [UserController::class, 'delete']);
 $app->router->get('/api/users/friends', [FriendshipController::class, 'friends']);
 $app->router->get('/api/users/friends/count', [FriendshipController::class, 'countFriends']);
 $app->router->post('/api/users/friends/add', [FriendshipController::class, 'add']);
@@ -34,7 +32,8 @@ $app->router->get('/api/admins/count', [AdminController::class, 'count']);
 $app->router->get('/api/moderators', [ModeratorController::class, 'index']);
 
 // Post
-$app->router->get('/api/posts', [PostController::class, 'index']);
+$app->router->get('/api/posts',                    [PostController::class, 'index']);
+$app->router->get('/api/posts/byCommunity',        [PostController::class, 'postByCommunityID']);
 
 //Community
 $app->router->get('/api/community', [CommunityController::class, 'index']);

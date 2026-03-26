@@ -12,3 +12,5 @@ Without it
 [0 => 1, 'UserID' => 1, Email => 'User1@gmail.com', ...]
 
 keep PDO:: FETCH_ASSOC on any SELECT query
+
+hello 2
