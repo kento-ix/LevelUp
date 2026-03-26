@@ -10,3 +10,7 @@ export const getById = async (id) => {
   return res.data;
 };
  
+export const searchEmail = async (email) => {
+  const res = await api.get(`/users/searchEmail?email=${email}`);
+  return res.data;
+};
