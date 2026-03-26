@@ -10,6 +10,8 @@ use app\Controllers\CommunityController;
 
 $app->router->get('/', [SiteController::class, 'home']); //http://localhost:8080/
 // user interface needs to be made to input values to search up
+
+// User
 $app->router->get('/api/users', [UserController::class, 'index']); // http://localhost:8080/api/users
 $app->router->get('/api/users/projection', [UserController::class, 'projection']);
 $app->router->get('/api/users/show', [UserController::class, 'show']);
@@ -22,13 +24,22 @@ $app->router->get('/api/users/friends', [FriendshipController::class, 'friends']
 $app->router->get('/api/users/friends/count', [FriendshipController::class, 'countFriends']);
 $app->router->post('/api/users/friends/add', [FriendshipController::class, 'add']);
 $app->router->get('/api/users/projection', [UserController::class, 'projection']);
+
+// Admin
 $app->router->get('/api/admins', [AdminController::class, 'index']);
+
+// Moderator
 $app->router->get('/api/moderators', [ModeratorController::class, 'index']);
+
+// Post
 $app->router->get('/api/posts', [PostController::class, 'index']);
+
+//Comminity
 $app->router->get('/api/community', [CommunityController::class, 'index']);
 $app->router->get('/api/community/getByUser', [CommunityController::class, 'getByUser']);
 $app->router->get('/api/community/division', [CommunityController::class, 'division']);
 
+//Auth
 $app->router->post('/api/auth/register', [AuthController::class, 'register']);
 $app->router->post('/api/auth/login',    [AuthController::class, 'login']);
 $app->router->post('/api/auth/logout',   [AuthController::class, 'logout']);
