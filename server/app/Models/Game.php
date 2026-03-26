@@ -20,7 +20,7 @@ class Game
     public function getAllGames(): array
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT * 
+        $sql  = "SELECT GameID, Genre, Title, PublishedDate 
         FROM Game";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();

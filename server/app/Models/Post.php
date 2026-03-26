@@ -35,7 +35,7 @@ class Post
                 FROM Post P
                 LEFT JOIN User U ON P.UserID = U.UserID
                 WHERE P.CommunityID = :id
-                ORDER BY P.PostID";
+                ORDER BY P.PostID DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
