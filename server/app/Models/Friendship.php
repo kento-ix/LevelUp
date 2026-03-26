@@ -36,8 +36,10 @@ class Friendship
         $stmt->bindValue(':friendId', $friendId, PDO::PARAM_INT);
         $stmt->execute();
 
-        $stmt->bindValue(':userId',   $friendId, PDO::PARAM_INT);
-        $stmt->bindValue(':friendId', $userId,   PDO::PARAM_INT);
-        $stmt->execute();
+        // rewriting $stmt to $stmt2 to ensure new values are properly bound       
+        $stmt2 = $pdo->prepare($sql);
+        $stmt2->bindValue(':userId',   $friendId, PDO::PARAM_INT);
+        $stmt2->bindValue(':friendId', $userId,   PDO::PARAM_INT);
+        $stmt2->execute();
     }
 }

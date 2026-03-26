@@ -57,4 +57,8 @@ class User
         $stmt->bindValue(':password', $hashedPassword,  PDO::PARAM_STR);
         return $stmt->execute();
     }
+
+    public function updateUser(int $id, string $username, string $availability): bool {
+        
+    }
 }
