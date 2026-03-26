@@ -13,4 +13,4 @@ Without it
 
 keep PDO:: FETCH_ASSOC on any SELECT query
 
-hello
+hello 2
