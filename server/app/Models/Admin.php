@@ -14,6 +14,18 @@ class Admin
         $this->pdo = Application::$app->db->pdo;
     }
 
+    /**
+     * Return admin list
+     */
+    public function getAllAdmins(): array
+    {
+        $pdo  = $this->pdo;
+        $sql  = "SELECT UserID, Permission FROM Admin ORDER BY UserID";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getCount(): array
     {
         $pdo  = $this->pdo;
