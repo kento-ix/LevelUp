@@ -8,9 +8,15 @@ class PostController
 {
     public function index(): array
     {
-        $post = new Post();
-        return $post->getAllPosts();
+        $postModel = new Post();
+        $post = $postModel->getAllPosts();
+
+        return [
+            'satus' => 'success',
+            'data' => $post
+        ];
     }
+
     public function getByCommunityID(): array
     {
         $id   = intval($_GET['id'] ?? 0); // reads the id value from the URL query parameter
