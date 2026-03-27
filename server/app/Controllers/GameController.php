@@ -8,7 +8,13 @@ class GameController
 {
     public function index(): array
     {
-        $game = new Game();
-        return $game->getAllGames();
+        $gameModel = new Game();
+        $games     = $gameModel->getAllGames();
+
+        return [
+            'status' => 'success',
+            'count'  => count($games),
+            'data'   => $games,
+        ];
     }
 }

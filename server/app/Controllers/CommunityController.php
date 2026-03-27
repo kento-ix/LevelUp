@@ -9,15 +9,27 @@ class CommunityController
     
     public function index(): array
     {
-        $community = new Community();
-        return $community->getAllCommunities();
+        $communityModel = new Community();
+        $communities    = $communityModel->getAllCommunities();
+
+        return [
+            'status' => 'success',
+            'count'  => count($communities),
+            'data'   => $communities,
+        ];
     }
-    
+
     public function getByUser(): array
     {
-        $id        = intval($_GET['id'] ?? 0);
-        $community = new Community();
-        return $community->getCommunityByUserId($id);
+        $id             = intval($_GET['id'] ?? 0);
+        $communityModel = new Community();
+        $communities    = $communityModel->getCommunityByUserId($id);
+
+        return [
+            'status' => 'success',
+            'count'  => count($communities),
+            'data'   => $communities,
+        ];
     }
 
     public function division(): array
