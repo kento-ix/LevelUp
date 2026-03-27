@@ -32,7 +32,7 @@ $app->router->get('/api/moderators', [ModeratorController::class, 'index']);
 
 // Post
 $app->router->get('/api/posts',                    [PostController::class, 'index']);
-$app->router->get('/api/posts/byCommunity',        [PostController::class, 'postByCommunityID']);
+$app->router->get('/api/posts/byCommunity',        [PostController::class, 'getByCommunityID']);
 
 //Comminity
 $app->router->get('/api/community', [CommunityController::class, 'index']);

@@ -11,7 +11,7 @@ class PostController
         $post = new Post();
         return $post->getAllPosts();
     }
-    public function postByCommunityID(): array
+    public function getByCommunityID(): array
     {
         $id   = intval($_GET['id'] ?? 0); // reads the id value from the URL query parameter
         $post = new Post();

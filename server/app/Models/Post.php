@@ -20,9 +20,7 @@ class Post
     public function getAllPosts(): array
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT * 
-        FROM Post 
-        ORDER BY PostID";
+        $sql  = "SELECT * FROM Post ORDER BY PostID";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
