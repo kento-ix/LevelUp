@@ -6,7 +6,11 @@ export const getAll = async () => {
 };
 
 export const getById = async (id) => {
-  const res = await api.get(`/users/show?id=${id}`);
+  const res = await api.post(`/users/show?id=${id}`);
   return res.data;
 };
- 
+
+export const getByName = async (searchName) => {
+  const res = await api.post(`/users/searchUsername?username=${searchName}`);
+  return res.data;
+};

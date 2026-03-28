@@ -1,11 +1,12 @@
 // Sample component to display User.php data
 import { useState, useEffect } from "react";
-import { getAll, getById } from "../services/userService";
+import { getAll, getById, getByName } from "../services/userService";
 
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchId, setSearchId] = useState("");
+  const [searchName, setSearchName] = useState("");
   const [fetchError, setFetchError] = useState('');
 
   useEffect(function fetchUsers() {
@@ -29,7 +30,7 @@ export default function UserList() {
       setFetchError("input valid ID");
       return;
     }
- 
+
     getById(id)
       .then(res => {
         setSelectedUser(res.data);
@@ -41,8 +42,32 @@ export default function UserList() {
       });
   };
 
+  const handleSearchName = () => {
+    setFetchError("");
+    setSelectedUser(null);
+ 
+    if (searchName == "") {
+      setFetchError("user name cannnot be empty");
+      return;
+    }
+ 
+    getByName(searchName)
+      .then(res => {
+        if(res == 'Not found'){
+          setFetchError(res);
+        }else{
+          setSelectedUser(res);
+        }
+      })
+      .catch(e => {
+        const msg = e.response?.data?.message || "User not found";
+        setFetchError(msg);
+      });
+  };
+
   const handleClear = () => {
     setSearchId("");
+    setSearchName("");
     setSelectedUser(null);
     setFetchError("");
   };
@@ -58,6 +83,18 @@ export default function UserList() {
           onChange={(e) => setSearchId(e.target.value)}
         />
         <button onClick={handleSearch}>Search</button>
+        <button onClick={handleClear}>Clear</button>
+      </div>
+
+      <div>
+        <h3>Try to find user by name</h3>
+        <input
+          type="text"
+          placeholder="Search by user name"
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+        />
+        <button onClick={handleSearchName}>Search</button>
         <button onClick={handleClear}>Clear</button>
       </div>
 
@@ -92,4 +129,4 @@ export default function UserList() {
       </div>
     </>
   );
-}
+ }
