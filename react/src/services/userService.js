@@ -11,6 +11,6 @@ export const getById = async (id) => {
 };
 
 export const getByName = async (searchName) => {
-  const res = await api.post(`/users/searchUsername?username=${searchName}`);
+  const res = await api.get(`/users/searchUsername?username=${searchName}`);
   return res.data;
 };
