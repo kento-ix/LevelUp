@@ -18,3 +18,8 @@ export const createUser = async (email, username, password) => {
   });
   return res.data;
 };
+
+export const projection = async (fields) => {
+  const res = await api.get(`/users/projection?fields=${fields.join(',')}`);
+  return res.data;
+};

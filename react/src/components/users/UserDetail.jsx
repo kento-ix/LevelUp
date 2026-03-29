@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getById, createUser } from "../../services/userService";
+import { getById, createUser, projection } from "../../services/userService";
 
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -10,6 +10,10 @@ export default function UserDetail() {
   const [newPassword, setNewPassword]       = useState('');
   const [createMessage, setCreateMessage]   = useState('');
   const [createError, setCreateError]       = useState('');
+  const [projectionResult, setProjectionResult] = useState([]);
+  const [projectionError, setProjectionError]   = useState('');
+  const [selectedFields, setSelectedFields]     = useState([]);
+  const availableFields = ['UserID', 'Email', 'Username', 'DateJoined', 'Availability'];
 
   const handleSearch = () => {
     setFetchError("");
@@ -49,6 +53,25 @@ export default function UserDetail() {
       setNewPassword('');
     } catch (e) {
       setCreateError(e.response?.data?.message || 'Failed to create user');
+    }
+  };
+
+  const handleFieldToggle = (field) => {
+    setSelectedFields(prev =>
+      prev.includes(field)
+        ? prev.filter(f => f !== field) // uncheck - remove from array
+        : [...prev, field]              // check - add to array
+    );
+  };
+
+  const handleProjection = async () => {
+    setProjectionError('');
+    setProjectionResult([]);
+    try {
+      const data = await projection(selectedFields);
+      setProjectionResult(data.data);
+    } catch (e) {
+      setProjectionError('Failed to fetch projection');
     }
   };
 
@@ -102,6 +125,32 @@ export default function UserDetail() {
 
       {createError   && <p>{createError}</p>}
       {createMessage && <p>{createMessage}</p>}
+
+      <h3>Projection: Select fields to display</h3>
+      {availableFields.map(field => (
+        <label key={field}>
+          <input
+            type="checkbox"
+            checked={selectedFields.includes(field)}
+            onChange={() => handleFieldToggle(field)}
+          />
+          {field}
+        </label>
+      ))}
+      <button onClick={handleProjection}>Get Fields</button>
+
+      {projectionError && <p>{projectionError}</p>}
+      {projectionResult.length > 0 && (
+        <ul>
+          {projectionResult.map((user, index) => (
+            <li key={index}>
+              {Object.entries(user).map(([key, value]) => (
+                <span key={key}><strong>{key}:</strong> {value} </span>
+              ))}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
