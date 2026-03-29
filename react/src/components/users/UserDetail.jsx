@@ -8,7 +8,7 @@ export default function UserDetail() {
 
   const handleSearch = () => {
     setFetchError("");
-    setSelectedUser(null);
+    setSelectedUser(null);z
 
     const id = searchId;
     if (!id || id <= 0) {
@@ -17,14 +17,8 @@ export default function UserDetail() {
     }
 
     getById(id)
-      .then(res => {
-        setSelectedUser(res.data);
-        console.log(res); // debug
-      })
-      .catch(e => {
-        const msg = e.response?.data?.message || "User not found";
-        setFetchError(msg);
-      });
+      .then(res => setSelectedUser(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "User not found"));
   };
 
   const handleClear = () => {

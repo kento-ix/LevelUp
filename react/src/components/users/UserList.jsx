@@ -7,14 +7,8 @@ export default function UserList() {
 
   useEffect(function fetchUsers() {
     getAll()
-      .then(res => {
-        setUsers(res.data);
-        console.log(res); // debug
-      })
-      .catch(e => {
-        const msg = e.response?.data?.message || "Fail to get data";
-        setFetchError(msg);
-      });
+      .then(res => setUsers(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "Fail to get data"));
   }, []);
 
   return (

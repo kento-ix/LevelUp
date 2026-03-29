@@ -1,15 +1,21 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function Header() {
+  const navClass = ({ isActive }) => isActive ? 'nav-link active' : 'nav-link'
+
   return (
-    <header>
+    <aside className="sidebar">
       <nav>
-        <Link to="/" style={{ fontWeight: 'bold', fontSize: '1.4rem', marginRight: 'auto' }}>
-          Level Up
-        </Link>
-        <Link to="/users">Users</Link>
-        <Link to="/friends">Friends</Link>
+        <span className="sidebar-title">Level Up</span>
+        <p className="section-title">MAIN</p>
+        <NavLink to="/posts" className={navClass}>Posts</NavLink>
+        <NavLink to="/communities" className={navClass}>Communities</NavLink>
+        <NavLink to="/games" className={navClass}>Games</NavLink>
+
+        <p className="section-title">SOCIAL</p>
+        <NavLink to="/users" className={navClass}>Users</NavLink>
+        <NavLink to="/friends" className={navClass}>Friends</NavLink>
       </nav>
-    </header>
+    </aside>
   )
 }

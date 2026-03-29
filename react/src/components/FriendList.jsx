@@ -17,13 +17,8 @@ export default function FriendList() {
     }
 
     getFriendsByUserId(id)
-      .then(res => {
-        setFriends(res.data);
-      })
-      .catch(e => {
-        const msg = e.response?.data?.message || "Failed to get friends";
-        setFetchError(msg);
-      });
+      .then(res => setFriends(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "Failed to get friends"));
   };
 
   const handleClear = () => {

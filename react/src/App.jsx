@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import Layout from './components/layout/Layout'
 import PostsPage from './pages/PostsPage'
@@ -11,7 +11,8 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<PostsPage />} />
+          <Route path="/" element={<Navigate to="/posts" replace />} />
+          <Route path="/posts" element={<PostsPage />} />
           <Route path="/posts/community/:id" element={<PostsByCommunityPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/friends" element={<FriendsPage />} />

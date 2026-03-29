@@ -10,13 +10,8 @@ export default function PostsByCommunity() {
 
   useEffect(function fetchCommunityPosts() {
     getByCommunityID(id)
-      .then((res) => {
-        setPosts(res.data);
-      })
-      .catch((e) => {
-        const msg = e.response?.data?.message || "Failed to get posts";
-        setFetchError(msg);
-      });
+      .then(res => setPosts(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "Failed to get posts"));
   }, [id]);
 
   return (
