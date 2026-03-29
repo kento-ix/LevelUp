@@ -10,3 +10,11 @@ export const getById = async (id) => {
   return res.data;
 };
  
+export const createUser = async (email, username, password) => {
+  const res = await api.post("/users/create", {
+    email,
+    username,
+    password
+  });
+  return res.data;
+};

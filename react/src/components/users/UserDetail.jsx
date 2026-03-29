@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { getById } from "../../services/userService";
+import { getById, createUser } from "../../services/userService";
 
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchId, setSearchId] = useState("");
   const [fetchError, setFetchError] = useState('');
+    const [newEmail, setNewEmail]             = useState('');
+  const [newUsername, setNewUsername]       = useState('');
+  const [newPassword, setNewPassword]       = useState('');
+  const [createMessage, setCreateMessage]   = useState('');
+  const [createError, setCreateError]       = useState('');
 
   const handleSearch = () => {
     setFetchError("");
     setSelectedUser(null);
 
-    const id = searchId;
+    const id = parseInt(searchId);
     if (!id || id <= 0) {
       setFetchError("input valid ID");
       return;
@@ -31,6 +36,20 @@ export default function UserDetail() {
     setSearchId("");
     setSelectedUser(null);
     setFetchError("");
+  };
+
+  const handleCreateUser = async () => {
+    setCreateError('');
+    setCreateMessage('');
+    try {
+      const data = await createUser(newEmail, newUsername, newPassword);
+      setCreateMessage(data.message);
+      setNewEmail('');
+      setNewUsername('');
+      setNewPassword('');
+    } catch (e) {
+      setCreateError(e.response?.data?.message || 'Failed to create user');
+    }
   };
 
   return (
@@ -59,6 +78,30 @@ export default function UserDetail() {
           </ul>
         </div>
       )}
+
+      <h3>Create new user</h3>
+      <input
+        type="text"
+        placeholder="Enter email"
+        value={newEmail}
+        onChange={(e) => setNewEmail(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Enter username"
+        value={newUsername}
+        onChange={(e) => setNewUsername(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Enter password"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+      />
+      <button onClick={handleCreateUser}>Create User</button>
+
+      {createError   && <p>{createError}</p>}
+      {createMessage && <p>{createMessage}</p>}
     </div>
   );
 }
