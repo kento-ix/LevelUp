@@ -22,11 +22,17 @@ class UserController
         ];
     }
 
-    public function projection(): array // allows the user to search up any field they want to view from the user table
+    public function projection(): array
     {
         $fields = explode(',', $_GET['fields'] ?? '');
-        $user   = new User();
-        return $user->getFieldfromUser($fields);
+        $userModel = new User();
+        $users  = $userModel->getFieldfromUser($fields);
+
+        return [
+            'status' => 'success',
+            'count'  => count($users),
+            'data'   => $users,
+        ];
     }
 
     public function show(): array
@@ -42,7 +48,7 @@ class UserController
         }
 
         $userModel = new User();
-        $user = $userModel->getUserById($id);
+        $user      = $userModel->getUserById($id);
 
         if (!$user) {
             http_response_code(404);
@@ -58,63 +64,94 @@ class UserController
         ];
     }
 
-    public function searchUsername(): array|false
+    public function searchUsername(): array
     {
-        $username = $_GET['username'] ?? '';
-        $user     = new User();
-        return $user->getUserInfoByUsername($username);
-    }
-    public function searchEmail(): array|false
-    {
-        $email = $_GET['email'] ?? '';
-        $user     = new User();
-        return $user->findByEmail($email);
-    }
-    public function create(): array
-        {
-            $data = json_decode(file_get_contents("php://input"), true);
+        $username  = $_GET['username'] ?? '';
+        $userModel = new User();
+        $user      = $userModel->getUserInfoByUsername($username);
 
-            // validate that all fields are present
-            if (empty($data['email']) || empty($data['username']) || empty($data['password'])) {
-                http_response_code(400);
-                return [
-                    'status'  => 'error',
-                    'message' => 'Email, username and password are required'
-                ];
-            }
-
-            $user    = new User();
-            $success = $user->createUser($data['email'], $data['username'], $data['password']);
-
-            if ($success) {
-                http_response_code(201);
-                return [
-                    'status'  => 'success',
-                    'message' => 'User created successfully'
-                ];
-            }
-
-            http_response_code(500);
+        if (!$user) {
+            http_response_code(404);
             return [
                 'status'  => 'error',
-                'message' => 'Failed to create user'
+                'message' => 'User not found',
             ];
         }
-    public function update(): array
-        {
-            $id   = intval($_GET['id'] ?? 0);
-            $data = json_decode(file_get_contents("php://input"), true);
-            $user = new User();
-             $success = $user->updateUser($id, $data['username'], $data['availability']);
-            return $success
-                ? ['status' => 'success', 'message' => 'User updated']
-                : ['status' => 'error',   'message' => 'Update failed'];
+
+        return [
+            'status' => 'success',
+            'data'   => $user,
+        ];
+    }
+
+    public function searchEmail(): array
+    {
+        $email     = $_GET['email'] ?? '';
+        $userModel = new User();
+        $user      = $userModel->findByEmail($email);
+
+        if (!$user) {
+            http_response_code(404);
+            return [
+                'status'  => 'error',
+                'message' => 'User not found',
+            ];
         }
+
+        return [
+            'status' => 'success',
+            'data'   => $user,
+        ];
+    }
+
+    public function create(): array
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (empty($data['email']) || empty($data['username']) || empty($data['password'])) {
+            http_response_code(400);
+            return [
+                'status'  => 'error',
+                'message' => 'Email, username and password are required',
+            ];
+        }
+
+        $userModel = new User();
+        $success   = $userModel->createUser($data['email'], $data['username'], $data['password']);
+
+        if ($success) {
+            http_response_code(201);
+            return [
+                'status'  => 'success',
+                'message' => 'User created successfully',
+            ];
+        }
+
+        http_response_code(500);
+        return [
+            'status'  => 'error',
+            'message' => 'Failed to create user',
+        ];
+    }
+
+    public function update(): array
+    {
+        $id        = intval($_GET['id'] ?? 0);
+        $data      = json_decode(file_get_contents("php://input"), true);
+        $userModel = new User();
+        $success   = $userModel->updateUser($id, $data['username'], $data['availability']);
+
+        return $success
+            ? ['status' => 'success', 'message' => 'User updated']
+            : ['status' => 'error',   'message' => 'Update failed'];
+    }
+
     public function delete(): array
     {
-        $id   = intval($_GET['id'] ?? 0);
-        $user = new User();
-        $success = $user->deleteUser($id);
+        $id        = intval($_GET['id'] ?? 0);
+        $userModel = new User();
+        $success   = $userModel->deleteUser($id);
+
         return $success
             ? ['status' => 'success', 'message' => 'User deleted']
             : ['status' => 'error',   'message' => 'User not found'];
