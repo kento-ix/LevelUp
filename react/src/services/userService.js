@@ -10,6 +10,15 @@ export const getById = async (id) => {
   return res.data;
 };
  
+export const createUser = async (email, username, password) => {
+  const res = await api.post("/users/create", {
+    email,
+    username,
+    password
+  });
+  return res.data;
+};
+
 export const searchUsername = async (username) => {
   const res = await api.get(`/users/searchUsername?username=${username}`);
   return res.data;
