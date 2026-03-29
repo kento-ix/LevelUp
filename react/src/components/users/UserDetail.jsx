@@ -1,9 +1,7 @@
 
 // Sample component to display User.php data
 import { useState } from "react";
-import { getById, getByName } from "../services/userService";
-import { useState } from "react";
-import { getById } from "../../services/userService";
+import { getById, getByName } from "../../services/userService";
 
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -46,7 +44,7 @@ export default function UserDetail() {
         if(res == 'Not found'){
           setFetchError(res);
         }else{
-          setSelectedUser(res);
+          setSelectedUser(res.data);
         }
       })
       .catch(e => {
