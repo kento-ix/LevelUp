@@ -38,8 +38,9 @@ class Game
     public function recentlyPublished(): array|false
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT MAX(PublishedDate) 
-        FROM Game";
+        $sql  = "SELECT GameID, Title, Genre, PublishedDate
+        FROM Game
+        WHERE PublishedDate = (SELECT MAX(PublishedDate) FROM Game)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
