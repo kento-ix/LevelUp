@@ -9,6 +9,7 @@ export default function Header() {
         </Link>
         <Link to="/users">Users</Link>
         <Link to="/friends">Friends</Link>
+        <Link to="/communities">Communities</Link>
       </nav>
     </header>
   )

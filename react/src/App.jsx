@@ -5,6 +5,7 @@ import PostsPage from './pages/PostsPage'
 import PostsByCommunityPage from './pages/PostsByCommunityPage'
 import UsersPage from './pages/UsersPage'
 import FriendsPage from './pages/FriendsPage'
+import CommunitiesPage from './pages/CommunitiesPage'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/posts/community/:id" element={<PostsByCommunityPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/friends" element={<FriendsPage />} />
+          <Route path="/communities" element={<CommunitiesPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
