@@ -26,27 +26,25 @@ export default function Header() {
         <span className="sidebar-sub">Gaming Community</span>
       </div>
 
-      {/* Nav */}
       <nav>
+        {/* Main section */}
         <p className="section-title">MAIN</p>
         {MAIN_NAV.map(({ label, to, icon }) => (
           <Link key={to} to={to} className={linkClass(to)}>
-            <span className="nav-icon">{icon}</span>
-            {label}
+            <span className="nav-icon">{icon}</span> {label}
           </Link>
         ))}
-
+        {/* Social section */}
         <p className="section-title">SOCIAL</p>
         {SOCIAL_NAV.map(({ label, to, icon }) => (
           <Link key={to} to={to} className={linkClass(to)}>
-            <span className="nav-icon">{icon}</span>
-            {label}
+            <span className="nav-icon">{icon}</span> {label}
           </Link>
         ))}
       </nav>
 
       {/* Footer */}
-      <div className="sidebar-footer">
+      <Link to="/profile" className="sidebar-footer">
         <div className="sidebar-avatar">U1</div>
         <div className="sidebar-user-info">
           <span className="sidebar-username">User1</span>
@@ -55,7 +53,7 @@ export default function Header() {
             online
           </span>
         </div>
-      </div>
+      </Link>
 
     </aside>
   )

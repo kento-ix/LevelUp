@@ -20,7 +20,19 @@ class Post
     public function getAllPosts(): array
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT * FROM Post ORDER BY PostID";
+        $sql  = "SELECT
+                    P.PostID, P.CommunityID, P.Title, P.Content, P.Date_Created,
+                    U.Username,
+                    G.Title AS GameTitle,
+                    G.Genre,
+                    UPG.Device,
+                    C.Name AS CommunityName
+                FROM Post P
+                LEFT JOIN User U ON P.UserID = U.UserID
+                LEFT JOIN Community C ON P.CommunityID = C.CommunityID
+                LEFT JOIN Game G ON C.GameID = G.GameID
+                LEFT JOIN User_Plays_Game UPG ON P.UserID = UPG.UserID AND G.GameID = UPG.GameID
+                ORDER BY P.PostID";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,9 +41,18 @@ class Post
     public function getPostsByCommunity(int $id): array
     {
         $pdo  = $this->pdo;
-        $sql  = "SELECT U.Username, P.PostID, P.Date_Created, P.Title, P.Content, P.CommunityID 
+        $sql  = "SELECT
+                    P.PostID, P.CommunityID, P.Title, P.Content, P.Date_Created,
+                    U.Username,
+                    G.Title AS GameTitle,
+                    G.Genre,
+                    UPG.Device,
+                    C.Name AS CommunityName
                 FROM Post P
                 LEFT JOIN User U ON P.UserID = U.UserID
+                LEFT JOIN Community C ON P.CommunityID = C.CommunityID
+                LEFT JOIN Game G ON C.GameID = G.GameID
+                LEFT JOIN User_Plays_Game UPG ON P.UserID = UPG.UserID AND G.GameID = UPG.GameID
                 WHERE P.CommunityID = :id
                 ORDER BY P.PostID";
         $stmt = $pdo->prepare($sql);

@@ -7,7 +7,6 @@ export default function UsersPage() {
     <>
       <PageHeader title="Users" />
       <UserList />
-      <UserDetail />
     </>
   )
 }

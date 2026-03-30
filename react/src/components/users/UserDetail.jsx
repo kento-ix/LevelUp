@@ -1,44 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAtom } from "jotai";
 import { getById } from "../../services/userService";
+import { currentUserIdAtom } from "../../atoms/userAtom";
 
 export default function UserDetail() {
+  // const [userId] = useAtom(currentUserIdAtom);
+  const userId = 1;
   const [selectedUser, setSelectedUser] = useState(null);
-  const [searchId, setSearchId] = useState("");
   const [fetchError, setFetchError] = useState('');
 
-  const handleSearch = () => {
-    setFetchError("");
-    setSelectedUser(null);z
-
-    const id = searchId;
-    if (!id || id <= 0) {
-      setFetchError("input valid ID");
-      return;
-    }
-
-    getById(id)
+  useEffect(() => {
+    setFetchError('');
+    setSelectedUser(null);
+    getById(userId)
       .then(res => setSelectedUser(res.data))
       .catch(e => setFetchError(e.response?.data?.message || "User not found"));
-  };
-
-  const handleClear = () => {
-    setSearchId("");
-    setSelectedUser(null);
-    setFetchError("");
-  };
+  }, [userId]);
 
   return (
     <div>
-      <h3>Try to find user by id</h3>
-      <input
-        type="number"
-        placeholder="Search by UserID"
-        value={searchId}
-        onChange={(e) => setSearchId(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
-      <button onClick={handleClear}>Clear</button>
-
       {fetchError && <p>{fetchError}</p>}
 
       {selectedUser && (
