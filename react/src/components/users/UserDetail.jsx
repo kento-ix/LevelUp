@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getById, createUser, projection } from "../../services/userService";
+import { getById, createUser, projection, updateUser } from "../../services/userService";
 
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -13,6 +13,12 @@ export default function UserDetail() {
   const [projectionResult, setProjectionResult] = useState([]);
   const [projectionError, setProjectionError]   = useState('');
   const [selectedFields, setSelectedFields]     = useState([]);
+  const [updateId, setUpdateId]                 = useState('');
+  const [updateUsername, setUpdateUsername]     = useState('');
+  const [updateAvailability, setUpdateAvailability] = useState('');
+  const [updateMessage, setUpdateMessage]       = useState('');
+  const [updateError, setUpdateError]           = useState('');
+  
   const availableFields = ['UserID', 'Email', 'Username', 'DateJoined', 'Availability'];
 
   const handleSearch = () => {
@@ -72,6 +78,20 @@ export default function UserDetail() {
       setProjectionResult(data.data);
     } catch (e) {
       setProjectionError('Failed to fetch projection');
+    }
+  };
+
+  const handleUpdateUser = async () => {
+    setUpdateError('');
+    setUpdateMessage('');
+    try {
+      const data = await updateUser(updateId, updateUsername, updateAvailability);
+      setUpdateMessage(data.message);
+      setUpdateId('');
+      setUpdateUsername('');
+      setUpdateAvailability('');
+    } catch (e) {
+      setUpdateError(e.response?.data?.message || 'Failed to update user');
     }
   };
 
@@ -151,6 +171,30 @@ export default function UserDetail() {
           ))}
         </ul>
       )}
+
+      <h3>Update User</h3>
+      <input
+        type="number"
+        placeholder="Enter UserID to update"
+        value={updateId}
+        onChange={(e) => setUpdateId(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Enter new username"
+        value={updateUsername}
+        onChange={(e) => setUpdateUsername(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Enter new availability"
+        value={updateAvailability}
+        onChange={(e) => setUpdateAvailability(e.target.value)}
+      />
+      <button onClick={handleUpdateUser}>Update User</button>
+      {updateError   && <p>{updateError}</p>}
+      {updateMessage && <p>{updateMessage}</p>}
+
     </div>
   );
 }

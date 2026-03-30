@@ -23,3 +23,8 @@ export const projection = async (fields) => {
   const res = await api.get(`/users/projection?fields=${fields.join(',')}`);
   return res.data;
 };
+
+export const updateUser = async (id, username, availability) => {
+  const res = await api.put(`/users/update?id=${id}`, { username, availability });
+  return res.data;
+};
