@@ -7,14 +7,8 @@ export default function UserList() {
 
   useEffect(function fetchUsers() {
     getAll()
-      .then(res => {
-        setUsers(res.data);
-        console.log(res); // debug
-      })
-      .catch(e => {
-        const msg = e.response?.data?.message || "Fail to get data";
-        setFetchError(msg);
-      });
+      .then(res => setUsers(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "Fail to get data"));
   }, []);
 
   return (
@@ -24,11 +18,11 @@ export default function UserList() {
       <ul>
         {users.map((user) => (
           <li key={user.UserID}>
-            {user.UserID}/
-            {user.Username}/
-            {user.Email}/
-            {user.DateJoined}/
-            {user.Availability}
+            <div><strong>UserID:</strong> {user.UserID}</div>
+            <div><strong>Username:</strong> {user.Username}</div>
+            <div><strong>Email:</strong> {user.Email}</div>
+            <div><strong>DateJoined:</strong> {user.DateJoined}</div>
+            <div><strong>Availability:</strong> {user.Availability}</div>
           </li>
         ))}
       </ul>

@@ -7,7 +7,7 @@ export default function UsersPage() {
     <>
       <UserList />
       <UserDetail />
-      <UserSearchUsername></UserSearchUsername>
+      <UserSearchUsername />
     </>
   )
 }
