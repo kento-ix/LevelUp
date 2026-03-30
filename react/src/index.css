@@ -1,25 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --color-bg-base:       #0f0f1a;
-  --color-bg-surface:    #16161f;
-  --color-bg-elevated:   #1c1c2e;
+  --color-bg-base:       #f0f0f2;
+  --color-bg-surface:    #f5f5f7;
+  --color-bg-elevated:   #ffffff;
 
-  --color-primary:       #7f77dd;
-  --color-primary-dark:  #534ab7;
-  --color-primary-light: #afa9ec;
+  --color-primary:       #5a52c2;
+  --color-primary-dark:  #3d37a0;
+  --color-primary-light: #7b74d4;
   --color-primary-faint: #eeedfe;
 
   --color-success:       #1d9e75;
   --color-warning:       #ef9f27;
   --color-danger:        #e24b4a;
 
-  --color-text-primary:  #e8e8f0;
-  --color-text-secondary:#9b9aaa;
-  --color-text-muted:    #55546a;
+  --color-text-primary:  #111111;
+  --color-text-secondary:#444444;
+  --color-text-muted:    #888888;
 
-  --color-border:        rgba(255,255,255,0.08);
-  --color-border-hover:  rgba(255,255,255,0.15);
+  --color-border:        rgba(0,0,0,0.1);
 
   --radius-sm:  6px;
   --radius-md:  10px;
@@ -55,7 +54,6 @@ body {
 /* Logo area */
 .sidebar-logo {
   padding: 1.25rem 1rem 1rem;
-  border-bottom: 1px solid var(--color-border);
   margin-bottom: 0.5rem;
 }
 
@@ -72,10 +70,6 @@ body {
   color: var(--color-text-primary);
 }
 
-.sidebar-sub {
-  font-size: 0.6875rem;
-  color: var(--color-text-muted);
-}
 
 /* Nav */
 .sidebar nav {
@@ -120,11 +114,6 @@ body {
   padding: 0.75rem 1rem 0.25rem;
 }
 
-.nav-icon {
-  font-size: 0.9rem;
-  width: 1rem;
-  text-align: center;
-}
 
 /* Footer */
 .sidebar-footer {
@@ -133,20 +122,6 @@ body {
   gap: 0.65rem;
   padding: 0.85rem 1rem;
   border-top: 1px solid var(--color-border);
-}
-
-.sidebar-avatar {
-  width: 2rem;
-  height: 2rem;
-  border-radius: var(--radius-full);
-  background-color: var(--color-primary-dark);
-  color: var(--color-primary-faint);
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
 }
 
 .sidebar-user-info {
@@ -193,79 +168,12 @@ main {
 }
 
 .post-card {
-  display: flex;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
-  border: 1px solid var(--color-border);
+  background: #e8e8eb;
   border-radius: var(--radius-md);
-  background-color: var(--color-bg-elevated);
+  padding: 12px;
   cursor: pointer;
 }
 
-.post-card:hover {
-  border-color: var(--color-border-hover);
-  background-color: var(--color-bg-surface);
-}
-
-.post-card-avatar {
-  width: 2.25rem;
-  height: 2.25rem;
-  flex-shrink: 0;
-  border-radius: var(--radius-full);
-  background-color: var(--color-primary-dark);
-  color: var(--color-primary-faint);
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.post-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.post-card-title {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--color-text-primary);
-}
-
-.post-card-meta {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
-
-.post-card-content {
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.post-card-badges {
-  display: flex;
-  gap: 0.4rem;
-  margin-top: 0.25rem;
-}
-
-.badge {
-  font-size: 0.65rem;
-  font-weight: 600;
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-full);
-}
-
-.badge-type {
-  background-color: var(--color-bg-base);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-}
 
 .page-header {
   padding: 1.2rem 1.5rem;

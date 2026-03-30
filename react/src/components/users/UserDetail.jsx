@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { useAtom } from "jotai";
 import { getById } from "../../services/userService";
-import { currentUserIdAtom } from "../../atoms/userAtom";
+import CommunityListForUser from "../communities/CommunityListByUser";
 
 export default function UserDetail() {
-  // const [userId] = useAtom(currentUserIdAtom);
   const userId = 1;
   const [selectedUser, setSelectedUser] = useState(null);
-  const [fetchError, setFetchError] = useState('');
+  const [fetchError, setFetchError] = useState("");
 
   useEffect(() => {
     setFetchError('');
@@ -25,12 +23,13 @@ export default function UserDetail() {
         <div>
           <h3>Test:Get user by id</h3>
           <ul>
-            <li><strong>UserID:</strong> {selectedUser.UserID}</li>
-            <li><strong>UserName:</strong> {selectedUser.Username}</li>
-            <li><strong>User Email:</strong> {selectedUser.Email}</li>
-            <li><strong>User Datajoined:</strong> {selectedUser.DateJoined}</li>
-            <li><strong>User Availability:</strong> {selectedUser.Availability}</li>
+            <li><div><strong>UserID:</strong> {selectedUser.UserID}</div></li>
+            <li><div><strong>Username:</strong> {selectedUser.Username}</div></li>
+            <li><div><strong>Email:</strong> {selectedUser.Email}</div></li>
+            <li><div><strong>DateJoined:</strong> {selectedUser.DateJoined}</div></li>
+            <li><div><strong>Availability:</strong> {selectedUser.Availability}</div></li>
           </ul>
+          <CommunityListForUser userID={selectedUser.UserID} />
         </div>
       )}
     </div>

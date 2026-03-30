@@ -1,5 +1,5 @@
 import UserList from "../components/users/UserList";
-import UserDetail from "../components/users/UserDetail";
+import UserSearchUsername from '../components/users/UserSearchUsername';
 import PageHeader from "../components/layout/PageHeader";
 
 export default function UsersPage() {
@@ -7,6 +7,7 @@ export default function UsersPage() {
     <>
       <PageHeader title="Users" />
       <UserList />
+      <UserSearchUsername />
     </>
   )
 }

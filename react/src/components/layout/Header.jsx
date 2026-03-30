@@ -1,51 +1,29 @@
 import { Link, useLocation } from 'react-router-dom'
 
-const MAIN_NAV = [
-  { label: 'Posts',       to: '/posts',       icon: '◈' },
-  { label: 'Communities', to: '/communities', icon: '⬡' },
-  { label: 'Games',       to: '/games',       icon: '◉' },
-]
-
-const SOCIAL_NAV = [
-  { label: 'Friends', to: '/friends', icon: '⊕' },
-  { label: 'Users',   to: '/users',   icon: '◎' },
-]
-
 export default function Header() {
   const { pathname } = useLocation()
   const linkClass = (to) => 'nav-link' + (pathname === to ? ' active' : '')
 
   return (
     <aside className="sidebar">
-
-      {/* Logo */}
       <div className="sidebar-logo">
         <div className="sidebar-logo-top">
           <span className="sidebar-title">LevelUp</span>
         </div>
-        <span className="sidebar-sub">Gaming Community</span>
       </div>
 
       <nav>
-        {/* Main section */}
         <p className="section-title">MAIN</p>
-        {MAIN_NAV.map(({ label, to, icon }) => (
-          <Link key={to} to={to} className={linkClass(to)}>
-            <span className="nav-icon">{icon}</span> {label}
-          </Link>
-        ))}
-        {/* Social section */}
+        <Link to="/posts" className={linkClass('/posts')}>Posts</Link>
+        <Link to="/communities" className={linkClass('/communities')}>Communities</Link>
+        <Link to="/games" className={linkClass('/games')}>Games</Link>
+
         <p className="section-title">SOCIAL</p>
-        {SOCIAL_NAV.map(({ label, to, icon }) => (
-          <Link key={to} to={to} className={linkClass(to)}>
-            <span className="nav-icon">{icon}</span> {label}
-          </Link>
-        ))}
+        <Link to="/friends" className={linkClass('/friends')}>Friends</Link>
+        <Link to="/users" className={linkClass('/users')}>Users</Link>
       </nav>
 
-      {/* Footer */}
       <Link to="/profile" className="sidebar-footer">
-        <div className="sidebar-avatar">U1</div>
         <div className="sidebar-user-info">
           <span className="sidebar-username">User1</span>
           <span className="sidebar-status">

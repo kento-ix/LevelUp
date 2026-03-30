@@ -2,7 +2,7 @@ import { useState } from "react";
 import { addFriendship } from "../../services/friendService";
 
 export default function AddFriendForm() {
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(1);
   const [friendId, setFriendId] = useState("");
   const [message, setMessage] = useState("");
   const [fetchError, setFetchError] = useState("");
@@ -28,15 +28,6 @@ export default function AddFriendForm() {
     <form onSubmit={handleSubmit}>
       <h3>Add Friend</h3>
       <div>
-        <label>Your ID</label>
-        <input
-          type="number"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          required
-        />
-      </div>
-      <div>
         <label>Friend ID</label>
         <input
           type="number"
@@ -45,7 +36,7 @@ export default function AddFriendForm() {
           required
         />
       </div>
-      <button type="submit">Add Friend</button>
+      <button type="submit">Add Friends</button>
 
       {message && <p>{message}</p>}
       {fetchError && <p>{fetchError}</p>}
