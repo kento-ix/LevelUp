@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { getFriendsByUserId } from "../services/friendService";
+import { getFriendsByUserId,addFriend,countFriends } from "../services/friendService";
 
 export default function FriendList() {
   const [friends, setFriends] = useState([]);
   const [searchId, setSearchId] = useState("");
   const [fetchError, setFetchError] = useState("");
+  const [friendId, setFriendId]         = useState('');
+  const [addMessage, setAddMessage]     = useState('');
+  const [addError, setAddError]         = useState('');
+  const [countResult, setCountResult]   = useState([]);
+  const [countError, setCountError]     = useState('');
 
   const handleSearch = () => {
     setFetchError("");
@@ -30,6 +35,29 @@ export default function FriendList() {
     setSearchId("");
     setFriends([]);
     setFetchError("");
+  };
+
+  const handleAddFriend = async () => {
+    setAddError('');
+    setAddMessage('');
+    try {
+      const data = await addFriend(searchId, friendId);
+      setAddMessage(data.message);
+      setFriendId('');
+    } catch (e) {
+      setAddError(e.response?.data?.message || 'Failed to add friend');
+    }
+  };
+
+  const handleCountFriends = async () => {
+    setCountError('');
+    setCountResult([]);
+    try {
+      const data = await countFriends();
+      setCountResult(data.data);
+    } catch (e) {
+      setCountError('Failed to get friend count');
+    }
   };
 
   return (
@@ -59,6 +87,40 @@ export default function FriendList() {
           </ul>
           ))}
         </div>
+      )}
+
+      <h2>Add Friend</h2>
+      <div>
+        <input
+          type="number"
+          placeholder="Enter your UserID"
+          value={searchId}
+          onChange={(e) => setSearchId(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Enter Friend UserID"
+          value={friendId}
+          onChange={(e) => setFriendId(e.target.value)}
+        />
+        <button onClick={handleAddFriend}>Add Friend</button>
+      </div>
+
+      {addError   && <p>{addError}</p>}
+      {addMessage && <p>{addMessage}</p>}
+
+      <h2>Friend Count Per User</h2>
+      <button onClick={handleCountFriends}>Get Count</button>
+
+      {countError && <p>{countError}</p>}
+      {countResult.length > 0 && (
+        <ul>
+          {countResult.map((user) => (
+            <li key={user.UserID}>
+              <strong>{user.Username}</strong>: {user.TotalFriends} friends
+            </li>
+          ))}
+        </ul>
       )}
     </>
   );
