@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getById, createUser, projection, updateUser } from "../../services/userService";
+import { getById, createUser, projection, updateUser, deleteUser } from "../../services/userService";
 
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -18,7 +18,10 @@ export default function UserDetail() {
   const [updateAvailability, setUpdateAvailability] = useState('');
   const [updateMessage, setUpdateMessage]       = useState('');
   const [updateError, setUpdateError]           = useState('');
-  
+  const [deleteId, setDeleteId]                 = useState('');
+  const [deleteMessage, setDeleteMessage]       = useState('');
+  const [deleteError, setDeleteError]           = useState('');
+
   const availableFields = ['UserID', 'Email', 'Username', 'DateJoined', 'Availability'];
 
   const handleSearch = () => {
@@ -92,6 +95,18 @@ export default function UserDetail() {
       setUpdateAvailability('');
     } catch (e) {
       setUpdateError(e.response?.data?.message || 'Failed to update user');
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    setDeleteError('');
+    setDeleteMessage('');
+    try {
+      const data = await deleteUser(deleteId);
+      setDeleteMessage(data.message);
+      setDeleteId('');
+    } catch (e) {
+      setDeleteError(e.response?.data?.message || 'Failed to delete user');
     }
   };
 
@@ -194,6 +209,17 @@ export default function UserDetail() {
       <button onClick={handleUpdateUser}>Update User</button>
       {updateError   && <p>{updateError}</p>}
       {updateMessage && <p>{updateMessage}</p>}
+      
+      <h3>Delete User</h3>
+      <input
+        type="number"
+        placeholder="Enter UserID to delete"
+        value={deleteId}
+        onChange={(e) => setDeleteId(e.target.value)}
+      />
+      <button onClick={handleDeleteUser}>Delete User</button>
+      {deleteError   && <p>{deleteError}</p>}
+      {deleteMessage && <p>{deleteMessage}</p>}
 
     </div>
   );

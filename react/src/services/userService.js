@@ -28,3 +28,8 @@ export const updateUser = async (id, username, availability) => {
   const res = await api.put(`/users/update?id=${id}`, { username, availability });
   return res.data;
 };
+
+export const deleteUser = async (id) => {
+  const res = await api.delete(`/users/delete?id=${id}`);
+  return res.data;
+};
