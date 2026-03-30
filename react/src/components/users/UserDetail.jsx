@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getById } from "../../services/userService";
-import CommunityList from "../CommunityList";
+import CommunityListForUser from "../communities/CommunityListForUser";
 
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -58,7 +58,7 @@ export default function UserDetail() {
             <li><strong>User Datajoined:</strong> {selectedUser.DateJoined}</li>
             <li><strong>User Availability:</strong> {selectedUser.Availability}</li>
           </ul>
-          <CommunityList userID={selectedUser.UserID}/>
+          <CommunityListForUser userID={selectedUser.UserID}/>
         </div>
       )}
     </div>
