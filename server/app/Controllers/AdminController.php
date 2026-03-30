@@ -17,4 +17,14 @@ class AdminController
             'data' => $admin
         ];
     }
+
+    public function count(): array
+    {
+        $adminModel = new Admin();
+        $result     = $adminModel->getCount();
+        return [
+            'status' => 'success',
+            'data'   => $result
+        ];
+    }
 }

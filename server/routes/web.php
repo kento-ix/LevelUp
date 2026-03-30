@@ -27,7 +27,7 @@ $app->router->post('/api/users/friends/add', [FriendshipController::class, 'add'
 
 // Admin
 $app->router->get('/api/admins', [AdminController::class, 'index']);
-
+$app->router->get('/api/admins/count', [AdminController::class, 'count']);
 // Moderator
 $app->router->get('/api/moderators', [ModeratorController::class, 'index']);
 

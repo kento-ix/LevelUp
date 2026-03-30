@@ -14,13 +14,23 @@ class Admin
         $this->pdo = Application::$app->db->pdo;
     }
 
-    public function getCount(): array
+    public function getAllAdmins(): array
     {
         $pdo  = $this->pdo;
         $sql  = "SELECT A.UserID, U.Username, A.Permission 
         FROM Admin A
         JOIN User U ON A.UserID = U.UserID
-        ORDER BY A.UserID
+        ORDER BY A.UserID";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCount(): array
+    {
+        $pdo  = $this->pdo;
+        $sql  = "SELECT COUNT(*) AS TotalAdmins
+        FROM Admin
         ";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
