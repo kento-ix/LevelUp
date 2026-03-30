@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getById } from "../../services/userService";
 
+
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchId, setSearchId] = useState("");
@@ -61,4 +62,4 @@ export default function UserDetail() {
       )}
     </div>
   );
-}
+ }
