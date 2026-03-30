@@ -1,32 +1,24 @@
 import { useState } from "react";
 import { getById } from "../../services/userService";
-import CommunityListForUser from "../communities/CommunityListForUser";
-
+import CommunityListForUser from "../communities/CommunityListByUser";
 
 export default function UserDetail() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchId, setSearchId] = useState("");
-  const [fetchError, setFetchError] = useState('');
+  const [fetchError, setFetchError] = useState("");
 
   const handleSearch = () => {
     setFetchError("");
     setSelectedUser(null);
 
-    const id = searchId;
-    if (!id || id <= 0) {
+    if (!searchId || searchId <= 0) {
       setFetchError("input valid ID");
       return;
     }
 
-    getById(id)
-      .then(res => {
-        setSelectedUser(res.data);
-        console.log(res); // debug
-      })
-      .catch(e => {
-        const msg = e.response?.data?.message || "User not found";
-        setFetchError(msg);
-      });
+    getById(searchId)
+      .then(res => setSelectedUser(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "User not found"));
   };
 
   const handleClear = () => {
@@ -53,15 +45,15 @@ export default function UserDetail() {
         <div>
           <h3>Test:Get user by id</h3>
           <ul>
-            <li><strong>UserID:</strong> {selectedUser.UserID}</li>
-            <li><strong>UserName:</strong> {selectedUser.Username}</li>
-            <li><strong>User Email:</strong> {selectedUser.Email}</li>
-            <li><strong>User Datajoined:</strong> {selectedUser.DateJoined}</li>
-            <li><strong>User Availability:</strong> {selectedUser.Availability}</li>
+            <li><div><strong>UserID:</strong> {selectedUser.UserID}</div></li>
+            <li><div><strong>Username:</strong> {selectedUser.Username}</div></li>
+            <li><div><strong>Email:</strong> {selectedUser.Email}</div></li>
+            <li><div><strong>DateJoined:</strong> {selectedUser.DateJoined}</div></li>
+            <li><div><strong>Availability:</strong> {selectedUser.Availability}</div></li>
           </ul>
-          <CommunityListForUser userID={selectedUser.UserID}/>
+          <CommunityListForUser userID={selectedUser.UserID} />
         </div>
       )}
     </div>
   );
- }
+}

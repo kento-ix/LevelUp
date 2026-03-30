@@ -10,20 +10,14 @@ export default function FriendList() {
     setFetchError("");
     setFriends([]);
 
-    const id = searchId;
-    if (!id || id <= 0) {
+    if (!searchId || searchId <= 0) {
       setFetchError("Input valid ID");
       return;
     }
 
-    getFriendsByUserId(id)
-      .then(res => {
-        setFriends(res.data);
-      })
-      .catch(e => {
-        const msg = e.response?.data?.message || "Failed to get friends";
-        setFetchError(msg);
-      });
+    getFriendsByUserId(searchId)
+      .then(res => setFriends(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "Failed to get friends"));
   };
 
   const handleClear = () => {
@@ -33,8 +27,8 @@ export default function FriendList() {
   };
 
   return (
-    <>
-    <h2>Search your friend</h2>
+    <div>
+      <h2>Search your friend</h2>
       <div>
         <input
           type="number"
@@ -51,15 +45,17 @@ export default function FriendList() {
       {friends.length > 0 && (
         <div>
           <h3>Friends</h3>
-          {friends.map((friend) => (
-          <ul key={friend.UserID}>
-            <li><strong>Your friend userID:</strong> {friend.UserID}</li>
-            <li><strong>Your friend user name:</strong> {friend.Username}</li>
-            <li><strong>Your friend Availability:</strong> {friend.Availability}</li>
+          <ul>
+            {friends.map((friend) => (
+              <li key={friend.UserID}>
+                <div><strong>UserID:</strong> {friend.UserID}</div>
+                <div><strong>Username:</strong> {friend.Username}</div>
+                <div><strong>Availability:</strong> {friend.Availability}</div>
+              </li>
+            ))}
           </ul>
-          ))}
         </div>
       )}
-    </>
+    </div>
   );
 }

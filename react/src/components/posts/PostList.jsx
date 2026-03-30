@@ -9,13 +9,8 @@ export default function PostList() {
 
   useEffect(function fetchPosts() {
     getAll()
-      .then((res) => {
-        setPosts(res.data);
-      })
-      .catch((e) => {
-        const msg = e.response?.data?.message || "Failed to get posts";
-        setFetchError(msg);
-      });
+      .then(res => setPosts(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "Failed to get posts"));
   }, []);
 
   return (
