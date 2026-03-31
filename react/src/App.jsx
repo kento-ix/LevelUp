@@ -7,6 +7,7 @@ import UsersPage from './pages/UsersPage'
 import FriendsPage from './pages/FriendsPage'
 import CommunitiesPage from './pages/CommunitiesPage'
 import ProfilePage from './pages/ProfilePage'
+import GamePage from './pages/GamePage'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/communities" element={<CommunitiesPage />} />
+          <Route path="/games" element={<GamePage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

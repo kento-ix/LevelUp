@@ -5,7 +5,6 @@ export default function GamePage() {
   return (
     <>
       <PageHeader title="Games" />
-      {/* <AddFriendForm /> */}
       <GameList />
     </>
   );
