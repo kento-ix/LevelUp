@@ -1,20 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import Layout from './components/layout/Layout'
 import PostsPage from './pages/PostsPage'
 import PostsByCommunityPage from './pages/PostsByCommunityPage'
 import UsersPage from './pages/UsersPage'
 import FriendsPage from './pages/FriendsPage'
+import CommunitiesPage from './pages/CommunitiesPage'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<PostsPage />} />
+          <Route path="/" element={<Navigate to="/posts" replace />} />
+          <Route path="/posts" element={<PostsPage />} />
           <Route path="/posts/community/:id" element={<PostsByCommunityPage />} />
           <Route path="/users" element={<UsersPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/friends" element={<FriendsPage />} />
+          <Route path="/communities" element={<CommunitiesPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getById, createUser, projection } from "../../services/userService";
 
 export default function UserDetail() {
+  const userId = 1;
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchId, setSearchId] = useState("");
   const [fetchError, setFetchError] = useState('');
@@ -15,8 +16,8 @@ export default function UserDetail() {
   const [selectedFields, setSelectedFields]     = useState([]);
   const availableFields = ['UserID', 'Email', 'Username', 'DateJoined', 'Availability'];
 
-  const handleSearch = () => {
-    setFetchError("");
+  useEffect(() => {
+    setFetchError('');
     setSelectedUser(null);
 
     const id = parseInt(searchId);
@@ -77,28 +78,19 @@ export default function UserDetail() {
 
   return (
     <div>
-      <h3>Try to find user by id</h3>
-      <input
-        type="number"
-        placeholder="Search by UserID"
-        value={searchId}
-        onChange={(e) => setSearchId(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
-      <button onClick={handleClear}>Clear</button>
-
       {fetchError && <p>{fetchError}</p>}
 
       {selectedUser && (
         <div>
           <h3>Test:Get user by id</h3>
           <ul>
-            <li><strong>UserID:</strong> {selectedUser.UserID}</li>
-            <li><strong>UserName:</strong> {selectedUser.Username}</li>
-            <li><strong>User Email:</strong> {selectedUser.Email}</li>
-            <li><strong>User Datajoined:</strong> {selectedUser.DateJoined}</li>
-            <li><strong>User Availability:</strong> {selectedUser.Availability}</li>
+            <li><div><strong>UserID:</strong> {selectedUser.UserID}</div></li>
+            <li><div><strong>Username:</strong> {selectedUser.Username}</div></li>
+            <li><div><strong>Email:</strong> {selectedUser.Email}</div></li>
+            <li><div><strong>DateJoined:</strong> {selectedUser.DateJoined}</div></li>
+            <li><div><strong>Availability:</strong> {selectedUser.Availability}</div></li>
           </ul>
+          <CommunityListForUser userID={selectedUser.UserID} />
         </div>
       )}
 

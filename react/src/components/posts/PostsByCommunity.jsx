@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getByCommunityID } from "../../services/postService";
+import PostCard from "../card/PostCard";
 
 export default function PostsByCommunity() {
   const { id } = useParams();
@@ -10,13 +11,8 @@ export default function PostsByCommunity() {
 
   useEffect(function fetchCommunityPosts() {
     getByCommunityID(id)
-      .then((res) => {
-        setPosts(res.data);
-      })
-      .catch((e) => {
-        const msg = e.response?.data?.message || "Failed to get posts";
-        setFetchError(msg);
-      });
+      .then(res => setPosts(res.data))
+      .catch(e => setFetchError(e.response?.data?.message || "Failed to get posts"));
   }, [id]);
 
   return (
@@ -24,16 +20,9 @@ export default function PostsByCommunity() {
       <button onClick={() => navigate(-1)}>← Back</button>
       <h2>Community Posts</h2>
       {fetchError && <p>{fetchError}</p>}
-      <div>
+      <div className="post-list">
         {posts.map((post) => (
-          <div
-            key={post.PostID}
-            style={{ border: "1px solid #ccc", padding: "12px", marginBottom: "8px" }}
-          >
-            <strong>{post.Title}</strong>
-            <p>{post.Content}</p>
-            <small>Posted by: {post.Username} | {post.Date_Created}</small>
-          </div>
+          <PostCard key={post.PostID} post={post}/>
         ))}
       </div>
     </div>

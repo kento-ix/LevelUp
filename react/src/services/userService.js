@@ -9,6 +9,10 @@ export const getById = async (id) => {
   const res = await api.get(`/users/show?id=${id}`);
   return res.data;
 };
+export const getByName = async (searchName) => {
+  const res = await api.get(`/users/searchUsername?username=${searchName}`);
+  return res.data;
+};
  
 export const createUser = async (email, username, password) => {
   const res = await api.post("/users/create", {

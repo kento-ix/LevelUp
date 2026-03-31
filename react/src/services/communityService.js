@@ -1,12 +1,12 @@
 import api from "../config/api";
 
 export const getAllCommunities = async () => {
-  const res = await api.get("/communities");
-  return res.data;
+    const res = await api.get(`/community`);
+    return res.data;
 };
 
-export const getCommunitiesByUser = async (id) => {
-  const res = await api.get(`/communities/user?id=${id}`);
+export const getCommunitiesByUserId = async (id) => {
+  const res = await api.get(`/community/getByUser?id=${id}`);
   return res.data;
 };
 
