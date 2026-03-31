@@ -1,22 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getById, createUser, projection } from "../../services/userService";
+import CommunityListForUser from "../communities/CommunityListByUser";
 
 export default function UserDetail() {
-  const userId = 1;
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [searchId, setSearchId] = useState("");
-  const [fetchError, setFetchError] = useState('');
-    const [newEmail, setNewEmail]             = useState('');
-  const [newUsername, setNewUsername]       = useState('');
-  const [newPassword, setNewPassword]       = useState('');
-  const [createMessage, setCreateMessage]   = useState('');
-  const [createError, setCreateError]       = useState('');
+  const [selectedUser, setSelectedUser]         = useState(null);
+  const [searchId, setSearchId]                 = useState("");
+  const [fetchError, setFetchError]             = useState('');
+  const [newEmail, setNewEmail]                 = useState('');
+  const [newUsername, setNewUsername]           = useState('');
+  const [newPassword, setNewPassword]           = useState('');
+  const [createMessage, setCreateMessage]       = useState('');
+  const [createError, setCreateError]           = useState('');
   const [projectionResult, setProjectionResult] = useState([]);
   const [projectionError, setProjectionError]   = useState('');
   const [selectedFields, setSelectedFields]     = useState([]);
+
   const availableFields = ['UserID', 'Email', 'Username', 'DateJoined', 'Availability'];
 
-  useEffect(() => {
+  const handleSearch = () => {
     setFetchError('');
     setSelectedUser(null);
 
@@ -29,7 +30,7 @@ export default function UserDetail() {
     getById(id)
       .then(res => {
         setSelectedUser(res.data);
-        console.log(res); // debug
+        console.log(res);
       })
       .catch(e => {
         const msg = e.response?.data?.message || "User not found";
@@ -60,8 +61,8 @@ export default function UserDetail() {
   const handleFieldToggle = (field) => {
     setSelectedFields(prev =>
       prev.includes(field)
-        ? prev.filter(f => f !== field) // uncheck - remove from array
-        : [...prev, field]              // check - add to array
+        ? prev.filter(f => f !== field)
+        : [...prev, field]
     );
   };
 
@@ -78,17 +79,27 @@ export default function UserDetail() {
 
   return (
     <div>
+      <h3>Find user by ID</h3>
+      <input
+        type="number"
+        placeholder="Search by UserID"
+        value={searchId}
+        onChange={(e) => setSearchId(e.target.value)}
+      />
+      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleClear}>Clear</button>
+
       {fetchError && <p>{fetchError}</p>}
 
       {selectedUser && (
         <div>
-          <h3>Test:Get user by id</h3>
+          <h3>User Info</h3>
           <ul>
-            <li><div><strong>UserID:</strong> {selectedUser.UserID}</div></li>
-            <li><div><strong>Username:</strong> {selectedUser.Username}</div></li>
-            <li><div><strong>Email:</strong> {selectedUser.Email}</div></li>
-            <li><div><strong>DateJoined:</strong> {selectedUser.DateJoined}</div></li>
-            <li><div><strong>Availability:</strong> {selectedUser.Availability}</div></li>
+            <li><strong>UserID:</strong> {selectedUser.UserID}</li>
+            <li><strong>Username:</strong> {selectedUser.Username}</li>
+            <li><strong>Email:</strong> {selectedUser.Email}</li>
+            <li><strong>DateJoined:</strong> {selectedUser.DateJoined}</li>
+            <li><strong>Availability:</strong> {selectedUser.Availability}</li>
           </ul>
           <CommunityListForUser userID={selectedUser.UserID} />
         </div>
@@ -114,7 +125,6 @@ export default function UserDetail() {
         onChange={(e) => setNewPassword(e.target.value)}
       />
       <button onClick={handleCreateUser}>Create User</button>
-
       {createError   && <p>{createError}</p>}
       {createMessage && <p>{createMessage}</p>}
 
@@ -130,7 +140,6 @@ export default function UserDetail() {
         </label>
       ))}
       <button onClick={handleProjection}>Get Fields</button>
-
       {projectionError && <p>{projectionError}</p>}
       {projectionResult.length > 0 && (
         <ul>
