@@ -5,11 +5,13 @@ export default function PostCard(props) {
   const post = props.post;
 
   return (
-    <div onClick={() => navigate(`/posts/community/${post.CommunityID}`)} className="post-card">
-      <strong>{post.Title}</strong>
-      <p>{post.Username} · {post.CommunityName} · {post.Date_Created}</p>
-      <p>{post.Content}</p>
-      <p>Genre:{post.Genre}</p>
-    </div>
+    <li onClick={() => navigate(`/posts/community/${post.CommunityID}`)} style={{ cursor: "pointer", border: "1px solid #ccc", borderRadius: "6px", padding: "0.75rem", listStyle: "none" }}>
+      <div><strong>Title:</strong> {post.Title}</div>
+      <div><strong>Username:</strong> {post.Username}</div>
+      <div><strong>Community:</strong> {post.CommunityName}</div>
+      <div><strong>Genre:</strong> {post.Genre}</div>
+      <div><strong>Date:</strong> {post.Date_Created}</div>
+      <div><strong>Content:</strong> {post.Content}</div>
+    </li>
   );
 }
