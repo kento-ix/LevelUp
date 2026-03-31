@@ -17,4 +17,19 @@ class GameController
             'data'   => $games,
         ];
     }
+
+    public function stats(): array
+    {
+        $gameModel        = new Game();
+        $count            = $gameModel->gameCount();
+        $recent           = $gameModel->recentlyPublished();
+
+        return [
+            'status' => 'success',
+            'data'   => [
+                'total_games'      => $count['total_games'],
+                'recently_published' => $recent['MAX(PublishedDate)'],
+            ],
+        ];
+    }
 }

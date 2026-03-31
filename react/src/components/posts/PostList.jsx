@@ -13,11 +13,14 @@ export default function PostList() {
   }, []);
 
   return (
-    <div className="post-list">
+    <div>
+      <h3>Posts</h3>
       {fetchError && <p>{fetchError}</p>}
-      {posts.map((post) => (
-        <PostCard key={post.PostID} post={post} />
-      ))}
+      <ul>
+        {posts.map((post) => (
+          <PostCard key={post.PostID} post={post} />
+        ))}
+      </ul>
     </div>
   );
 }

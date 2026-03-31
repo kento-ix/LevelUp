@@ -7,6 +7,7 @@ use app\Controllers\AdminController;
 use app\Controllers\ModeratorController;
 use app\Controllers\PostController;
 use app\Controllers\CommunityController;
+use app\Controllers\GameController;
 
 $app->router->get('/', [SiteController::class, 'home']); //http://localhost:8080/
 // user interface needs to be made to input values to search up
@@ -33,6 +34,10 @@ $app->router->get('/api/moderators', [ModeratorController::class, 'index']);
 // Post
 $app->router->get('/api/posts',                    [PostController::class, 'index']);
 $app->router->get('/api/posts/byCommunity',        [PostController::class, 'getByCommunityID']);
+
+// Game
+$app->router->get('/api/games',       [GameController::class, 'index']);
+$app->router->get('/api/games/stats', [GameController::class, 'stats']);
 
 //Comminity
 $app->router->get('/api/community', [CommunityController::class, 'index']);

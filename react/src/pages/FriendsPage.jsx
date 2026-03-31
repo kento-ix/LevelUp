@@ -1,13 +1,15 @@
-import FriendList from "../components/FriendList";
-import AddFriendForm from "../components/form/AddFriendForm";
+// import AddFriendForm from "../components/form/AddFriendForm";
+import FriendRanking from "../components/friends/FriendRanking";
 import PageHeader from "../components/layout/PageHeader";
 
 export default function FriendsPage() {
   return (
     <>
       <PageHeader title="Friends" />
-      <AddFriendForm />
-      <FriendList />
+      <div className="page-content">
+        {/* <AddFriendForm /> */}
+        <FriendRanking />
+      </div>
     </>
   );
 }

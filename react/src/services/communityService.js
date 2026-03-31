@@ -10,3 +10,8 @@ export const getCommunitiesByUserId = async (id) => {
   return res.data;
 };
 
+export const getDivisionUsers = async () => {
+  const res = await api.get(`/community/division`);
+  return res.data;
+};
+

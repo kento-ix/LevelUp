@@ -22,17 +22,6 @@ export default function Header() {
         <Link to="/friends" className={linkClass('/friends')}>Friends</Link>
         <Link to="/users" className={linkClass('/users')}>Users</Link>
       </nav>
-
-      <Link to="/profile" className="sidebar-footer">
-        <div className="sidebar-user-info">
-          <span className="sidebar-username">User1</span>
-          <span className="sidebar-status">
-            <span className="status-dot online" />
-            online
-          </span>
-        </div>
-      </Link>
-
     </aside>
   )
 }

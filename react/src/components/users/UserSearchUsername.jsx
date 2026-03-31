@@ -28,28 +28,49 @@ export default function UserSearchUsername() {
 
   return (
     <div>
-      <h3>Try to find user by name</h3>
-      <input
-        type="text"
-        placeholder="Search by user name"
-        value={searchName}
-        onChange={(e) => setSearchName(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
-      <button onClick={handleClear}>Clear</button>
+      <h3>2. Selection Query - Find User by Name</h3>
+      <div className="sql-block">
+        <span style={{ color:"#89b4fa" }}>SELECT</span> UserID, Email, Username, DateJoined, Availability{"\n"}
+        <span style={{ color:"#89b4fa" }}>FROM</span> User{"\n"}
+        <span style={{ color:"#89b4fa" }}>WHERE</span> Username = <span style={{ color:"#a6e3a1" }}>'{searchName || "?"}'</span>
+      </div>
+      <div className="search-row">
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Search by user name"
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+        />
+        <button className="btn-primary" onClick={handleSearch}>Search</button>
+        <button className="btn-secondary" onClick={handleClear}>Clear</button>
+      </div>
 
-      {fetchError && <p>{fetchError}</p>}
+      {fetchError && <p className="error-text">{fetchError}</p>}
 
       {selectedUser && (
-        <div>
-          <h3>Test:Get user by name</h3>
-          <ul>
-            <li><div><strong>UserID:</strong> {selectedUser.UserID}</div></li>
-            <li><div><strong>Username:</strong> {selectedUser.Username}</div></li>
-            <li><div><strong>Email:</strong> {selectedUser.Email}</div></li>
-            <li><div><strong>DateJoined:</strong> {selectedUser.DateJoined}</div></li>
-            <li><div><strong>Availability:</strong> {selectedUser.Availability}</div></li>
-          </ul>
+        <div className="result-card">
+          <table className="result-table">
+            <thead>
+              <tr>
+                <th>UserID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>DateJoined</th>
+                <th>Availability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{selectedUser.UserID}</td>
+                <td>{selectedUser.Username}</td>
+                <td>{selectedUser.Email}</td>
+                <td>{selectedUser.DateJoined}</td>
+                <td>{selectedUser.Availability}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       )}
     </div>
