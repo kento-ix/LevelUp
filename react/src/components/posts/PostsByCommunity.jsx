@@ -20,6 +20,10 @@ export default function PostsByCommunity() {
     try {
       const data = await getByCommunityID(id);
       console.log(data);
+      if (data.data.length === 0) {
+        setFetchError("Community ID does not exist or has no posts");
+        return;
+      }
       setPosts(data.data);
     } catch (e) {
       setFetchError(e.response?.data?.message || "Failed to get posts");
