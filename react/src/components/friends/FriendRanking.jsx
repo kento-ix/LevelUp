@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { getFriendCount } from "../../services/friendService";
+import FriendCard from "../card/FriendCard";
 
 export default function FriendRanking() {
-  const [rows, setRows]         = useState([]);
+  const [rows, setRows] = useState([]);
   const [fetchError, setFetchError] = useState("");
-  const [ran, setRan]           = useState(false);
+  const [ran, setRan] = useState(false);
 
   const handleSearch = () => {
     setFetchError("");
     setRan(false);
     getFriendCount()
-      .then(res => { setRows(res.data); setRan(true); })
+      .then(res => { setRows(res.data); setRan(true);})
       .catch(e => setFetchError(e.response?.data?.message || "Failed to get data"));
   };
 
@@ -35,30 +36,7 @@ export default function FriendRanking() {
 
       {fetchError && <p className="error-text">{fetchError}</p>}
 
-      {ran && (
-        <div className="result-card">
-          <table className="result-table">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>UserID</th>
-                <th>Username</th>
-                <th>TotalFriends</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r, i) => (
-                <tr key={r.UserID}>
-                  <td>{i + 1}</td>
-                  <td>{r.UserID}</td>
-                  <td>{r.Username}</td>
-                  <td>{r.TotalFriends}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      {ran && <FriendCard friends={rows} />}
     </div>
   );
 }
