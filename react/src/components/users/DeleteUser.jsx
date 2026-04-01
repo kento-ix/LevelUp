@@ -2,18 +2,15 @@ import { useState } from "react";
 import { deleteUser } from "../../services/userService";
 
 export default function DeleteUser() {
-  const [userId, setUserId]     = useState("");
-  const [message, setMessage]   = useState("");
+  const [userId, setUserId] = useState("");
+  const [message, setMessage] = useState("");
   const [fetchError, setFetchError] = useState("");
-  const [confirm, setConfirm]   = useState(false);
 
   const handleDelete = () => {
     if (!userId) return;
-    if (!confirm) { setConfirm(true); return; }
 
     setFetchError("");
     setMessage("");
-    setConfirm(false);
 
     deleteUser(userId)
       .then(() => {
@@ -31,17 +28,16 @@ export default function DeleteUser() {
         <span style={{ color:"#6c7086" }}>-- ON DELETE CASCADE applies to:{"\n"}-- FriendShip, Post, Admin, Admin_Manages_User</span>
       </div>
       <input
+        className="search-input"
         type="number"
         placeholder="User ID to delete"
         value={userId}
-        onChange={e => { setUserId(e.target.value); setConfirm(false); setMessage(""); setFetchError(""); }}
+        onChange={e => { setUserId(e.target.value); setMessage(""); setFetchError(""); }}
       />
-      <button onClick={handleDelete} disabled={!userId}>
-        {confirm ? "Confirm Delete" : "Delete User"}
+      <button className="btn-primary" onClick={handleDelete}>
+        Delete User
       </button>
-      {confirm && <button onClick={() => setConfirm(false)}>Cancel</button>}
 
-      {confirm && <p>This will cascade-delete all related data (FriendShip, Post, Admin).</p>}
       {fetchError && <p>{fetchError}</p>}
       {message && <p>{message}</p>}
     </div>

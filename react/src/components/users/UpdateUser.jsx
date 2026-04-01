@@ -2,11 +2,11 @@ import { useState } from "react";
 import { updateUser } from "../../services/userService";
 
 export default function UpdateUser() {
-  const [userId, setUserId]             = useState("");
-  const [username, setUsername]         = useState("");
+  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
   const [availability, setAvailability] = useState("online");
-  const [message, setMessage]           = useState("");
-  const [fetchError, setFetchError]     = useState("");
+  const [message, setMessage] = useState("");
+  const [fetchError, setFetchError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();

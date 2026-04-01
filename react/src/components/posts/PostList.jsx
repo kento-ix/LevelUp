@@ -4,9 +4,9 @@ import { getAll } from "../../services/postService";
 import PostCard from "../card/PostCard";
 
 export default function PostList() {
-  const [posts, setPosts]           = useState([]);
+  const [posts, setPosts] = useState([]);
   const [fetchError, setFetchError] = useState("");
-  const navigate                    = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(function fetchPosts() {
     getAll()
