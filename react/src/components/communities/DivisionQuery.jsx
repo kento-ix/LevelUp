@@ -38,10 +38,10 @@ export default function DivisionQuery() {
         <div className="result-card">
           <p style={{ marginBottom: "0.5rem" }}>{users.length} user(s) have joined every community</p>
           <ul>
-            {users.map(u => (
-              <li key={u.UserID} style={{ borderBottom: "1px solid var(--color-border)", paddingBottom: "0.5rem", marginBottom: "0.5rem" }}>
-                <div><strong>UserID:</strong> {u.UserID}</div>
-                <div><strong>Username:</strong> {u.Username}</div>
+            {users.map(user => (
+              <li key={user.UserID} style={{ borderBottom: "1px solid var(--color-border)", paddingBottom: "0.5rem", marginBottom: "0.5rem" }}>
+                <div><strong>UserID:</strong> {user.UserID}</div>
+                <div><strong>Username:</strong> {user.Username}</div>
               </li>
             ))}
           </ul>
