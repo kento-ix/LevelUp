@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/posts" replace />} />
           <Route path="/posts" element={<PostsPage />} />
-          <Route path="/posts/community/:id" element={<PostsByCommunityPage />} />
+          <Route path="/posts/community" element={<PostsByCommunityPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/communities" element={<CommunitiesPage />} />
