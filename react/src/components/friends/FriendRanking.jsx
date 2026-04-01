@@ -11,7 +11,7 @@ export default function FriendRanking() {
     setFetchError("");
     setRan(false);
     getFriendCount()
-      .then(res => { setRows(res); setRan(true);})
+      .then(res => { setRows(res.data); setRan(true);})
       .catch(e => setFetchError(e.response?.data?.message || "Failed to get data"));
   };
 
