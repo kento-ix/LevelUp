@@ -25,7 +25,7 @@ export default function PostList() {
         ))}
       </ul>
 
-      <button onClick={() => navigate('/posts/community')}>
+      <button className="btn-primary" onClick={() => navigate('/posts/community')}>
         View Posts by Community
       </button>
     </div>
